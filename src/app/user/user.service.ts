@@ -6,11 +6,11 @@ import { User } from '../user/user.model';
 
 @Injectable()
 export class UserService {
-  currentUser = new BehaviorSubject<User>(null);
+  currentUser$ = new BehaviorSubject<User>(null);
 
   constructor() { }
 
   setCurrentUser(user: User) {
-    this.currentUser.next(user);
+    this.currentUser$.next(user);
   }
 }
