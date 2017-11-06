@@ -18,6 +18,9 @@ export class MessagesService {
   message$: Observable<Message[]>;
   update$ = new Subject<any>();
 
+  create$ = new Subject<Message>();
+  markThreadAsRead = new Subject<any>();
+
   constructor() {
     this.message$ = this.update$.scan(
       (messages: Message[], operation: MessagesOperation) =>
@@ -27,6 +30,25 @@ export class MessagesService {
     .shareReplay(1);
     // .publishReplay(1)
     // .refCount();
+    this.create$.map((message: Message): MessagesOperation =>
+      (messages: Message[]) =>
+        messages.concat(message)
+    )
+    .subscribe(this.update$);
+
+    this.newMessage$.subscribe(this.create$);
+
+    this.markThreadAsRead.map((thread: Thread): MessagesOperation => {
+      return (messages: Message[]) => {
+        return messages.map((message: Message) => {
+          if (message.thread.id === thread.id) {
+            message.isRead = true;
+          }
+          return message;
+        });
+      };
+    })
+    .subscribe(this.update$);
   }
 
   // add a new message
@@ -41,3 +63,7 @@ export class MessagesService {
     );
   }
 }
+
+export const messageServiceInjectables: Array<any> = [
+  MessagesService,
+];
