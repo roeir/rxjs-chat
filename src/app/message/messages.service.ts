@@ -19,7 +19,7 @@ export class MessagesService {
   update$ = new Subject<any>();
 
   create$ = new Subject<Message>();
-  markThreadAsRead = new Subject<any>();
+  markThreadAsRead$ = new Subject<any>();
 
   constructor() {
     this.message$ = this.update$.scan(
@@ -38,7 +38,7 @@ export class MessagesService {
 
     this.newMessage$.subscribe(this.create$);
 
-    this.markThreadAsRead.map((thread: Thread): MessagesOperation => {
+    this.markThreadAsRead$.map((thread: Thread): MessagesOperation => {
       return (messages: Message[]) => {
         return messages.map((message: Message) => {
           if (message.thread.id === thread.id) {
