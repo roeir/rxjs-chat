@@ -1,0 +1,21 @@
+<article class="message"
+  [ngClass]="{ 'message--sent': !incoming, 'message--receive': incoming }">
+
+  <div class="message__avatar" *ngIf="incoming">
+    <img [src]="message.author.avatarSrc" [alt]="message.author.name">
+  </div>
+
+  <div class="message__content">
+    <p class="message__text">
+      {{ message.text }}
+    </p>
+    <p class="message__time">
+      {{ message.sendAt | appFromNow }}
+    </p>
+  </div>
+
+  <div class="message__avatar" *ngIf="!incoming">
+    <img [src]="message.author.avatarSrc" [alt]="message.author.name">
+  </div>
+
+</article>

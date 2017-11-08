@@ -1,0 +1,8 @@
+<!-- Conversations -->
+
+<section class="conversations">
+  <app-chat-thread
+    *ngFor="let thread of thread$ | async"
+    [thread]="thread">
+  </app-chat-thread>
+</section>

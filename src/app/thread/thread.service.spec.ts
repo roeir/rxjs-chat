@@ -1,5 +1,5 @@
 import { map, values } from 'lodash';
-import { v4 } from 'uuid/v4';
+import { v4 } from 'uuid';
 
 import { User } from '../user/user.model';
 import { Thread } from './thread.model';

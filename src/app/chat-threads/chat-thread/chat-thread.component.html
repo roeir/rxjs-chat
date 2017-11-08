@@ -1,0 +1,14 @@
+<article class="thread" (click)="handleThreadSelect()">
+  <div class="thread__avatar">
+    <img [src]="thread.avatarUrl" [alt]="thread.name">
+  </div>
+  <div class="thread__content">
+    <header class="thread__name">
+      <h4> {{ thread.name }} </h4>
+      <span *ngIf="selected" >&bull;</span>
+    </header>
+    <p class="thread__preview">
+      {{ thread.lastMessage.text }}
+    </p>
+  </div>
+</article>

@@ -1,0 +1,19 @@
+<section class="chat-window">
+  <header class="chat-window__title">
+    <h5> Chat: {{ currentThread?.name }} </h5>
+  </header>
+  <div class="messages-container">
+    <app-chat-message
+      *ngFor="let message of message$ | async"
+      [message]="message">
+    </app-chat-message>
+  </div>
+  <footer class="chat-window__footer">
+    <input
+      (keyup.enter)="sendMessage()"
+      [(ngModel)]="draftMessage"
+      type="text"
+      placeholder="Type your message here...">
+    <button (click)="sendMessage()" >Send</button>
+  </footer>
+</section>

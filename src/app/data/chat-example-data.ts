@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { v4 } from 'uuid/v4';
+import { v4 } from 'uuid';
 
 import { Message, MessagesService } from '../message';
 import { Thread, ThreadService } from '../thread';
@@ -118,7 +118,7 @@ export class ChatExampleData {
 
     // echo bot
     messageService.messagesForThreadUser(thEcho, echo)
-      .map((message: Message) => {
+      .forEach((message: Message) => {
         messageService.addMessage({
           id: v4(),
           author: echo,
@@ -126,11 +126,13 @@ export class ChatExampleData {
           thread: thEcho,
           sendAt: new Date(),
         });
-      });
+      }, null);
 
     // reverse bot
     messageService.messagesForThreadUser(thRev, rev)
-      .map((message: Message) => {
+      .forEach((message: Message) => {
+        console.log('rev');
+
         messageService.addMessage({
           id: v4(),
           author: echo,
@@ -138,11 +140,11 @@ export class ChatExampleData {
           thread: thRev,
           sendAt: new Date(),
         });
-      });
+      }, null);
 
     // waiting bot
     messageService.messagesForThreadUser(thWait, wait)
-      .map((message: Message) => {
+      .forEach((message: Message) => {
         let waitTime = parseInt(message.text, 10);
         let reply: string;
 
@@ -153,6 +155,7 @@ export class ChatExampleData {
           reply = `I waited ${waitTime} seconds to send you this.`;
         }
 
+        // FIXME: possible broken
         const timeout = setTimeout(() => {
           messageService.addMessage({
             id: v4(),
@@ -163,6 +166,6 @@ export class ChatExampleData {
           });
           clearTimeout(timeout);
         }, waitTime * 1000);
-      });
+      }, null);
   }
 }
