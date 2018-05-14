@@ -57,6 +57,7 @@ export class MessagesService {
   }
 
   // messages from passed thread and not authored by user
+  // messages from passed thread and not authored by user
   messagesForThreadUser(thread: Thread, user: User): Observable<Message> {
     return this.newMessage$.filter((message: Message) =>
       (message.thread.id === thread.id) && (message.author.id !== user.id)
